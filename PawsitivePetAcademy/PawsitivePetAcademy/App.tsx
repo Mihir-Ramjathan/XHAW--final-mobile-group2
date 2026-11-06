@@ -140,3 +140,18 @@ const COURSES: Course[] = [
   },
 ];
 
+// Names of the application screens
+type Page =
+  | "Welcome"
+  | "Home"
+  | "About"
+  | "Courses"
+  | "CourseDetail"
+  | "SelectCourses"
+  | "MySelection"
+  | "Fees"
+  | "RequestQuote"
+  | "Enquiry"
+  | "Contact"
+  | "Confirmation";
+
