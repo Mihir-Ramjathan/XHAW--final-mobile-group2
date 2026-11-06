@@ -29,3 +29,13 @@ const COLORS = {
   white: "#FFFFFF",
 };
 
+// Course data type
+type Course = {
+  id: string;
+  name: string;
+  price: number;
+  duration: string;
+  description: string;
+  topics: string[];
+};
+
