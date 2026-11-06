@@ -261,3 +261,14 @@ export default function App() {
     );
   }
 
+  // Add or remove a course
+  function toggleCourse(courseId: string) {
+    if (selectedIds.includes(courseId)) {
+      setSelectedIds(
+        selectedIds.filter((id) => id !== courseId)
+      );
+    } else {
+      setSelectedIds([...selectedIds, courseId]);
+    }
+  }
+
