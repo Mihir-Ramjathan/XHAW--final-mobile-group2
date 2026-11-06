@@ -243,3 +243,9 @@ export default function App() {
 
   const [strConfirmation, setStrConfirmation] =
     useState("");
+
+  // Change between screens
+  function navigate(page: Page) {
+    setCurrentPage(page);
+  }
+
