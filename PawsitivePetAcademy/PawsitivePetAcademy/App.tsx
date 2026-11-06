@@ -1073,3 +1073,64 @@ export default function App() {
   }
 
   
+  // Main application layout
+  return (
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar style="light" />
+
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.headerContent}
+            onPress={() => navigate("Home")}
+          >
+            <Image
+              source={require("./assets/logo.png")}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+
+            <Text style={styles.headerTitle}>
+              PAWSITIVE PET ACADEMY
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {currentPage !== "Welcome" && (
+          <View style={styles.navigation}>
+            {[
+              { label: "Home", page: "Home" },
+              { label: "Courses", page: "Courses" },
+              { label: "Select", page: "SelectCourses" },
+              { label: "Fees", page: "Fees" },
+              { label: "Contact", page: "Contact" },
+            ].map((item) => (
+              <TouchableOpacity
+                key={item.label}
+                style={styles.navItem}
+                onPress={() =>
+                  navigate(item.page as Page)
+                }
+              >
+                <Text style={styles.navText}>
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
+        <ScrollView
+          key={currentPage}
+          style={styles.scrollView}
+          contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps="handled"
+        >
+          {renderPage()}
+        </ScrollView>
+
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
+}
+
