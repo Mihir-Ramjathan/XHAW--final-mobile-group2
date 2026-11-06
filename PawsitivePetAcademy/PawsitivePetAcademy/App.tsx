@@ -431,3 +431,79 @@ export default function App() {
     navigate("Confirmation");
   }
 
+  // Customer form used on two screens
+  function customerForm(isQuote: boolean) {
+    return (
+      <View style={styles.card}>
+        <FormInput
+          label="Full Name"
+          value={strName}
+          onChangeText={setStrName}
+        />
+
+        <FormInput
+          label="Email Address"
+          value={strEmail}
+          onChangeText={setStrEmail}
+          keyboardType="email-address"
+        />
+
+        <FormInput
+          label="Phone Number"
+          value={strPhone}
+          onChangeText={setStrPhone}
+          keyboardType="phone-pad"
+        />
+
+        {!isQuote && (
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>
+              Enquiry Type
+            </Text>
+
+            {[
+              "General",
+              "Courses",
+              "Fees",
+              "Other",
+            ].map((type) => (
+              <TouchableOpacity
+                key={type}
+                style={[
+                  styles.option,
+                  strEnquiryType === type &&
+                    styles.selectedOption,
+                ]}
+                onPress={() =>
+                  setStrEnquiryType(type)
+                }
+              >
+                <Text>{type}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
+        <FormInput
+          label="Message"
+          value={strMessage}
+          onChangeText={setStrMessage}
+          multiline
+        />
+
+        <AppButton
+          title={
+            isQuote
+              ? "Submit Quote Request"
+              : "Send Enquiry"
+          }
+          onPress={
+            isQuote
+              ? submitQuote
+              : submitEnquiry
+          }
+        />
+      </View>
+    );
+  }
+
