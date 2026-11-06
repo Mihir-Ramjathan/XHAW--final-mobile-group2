@@ -272,3 +272,40 @@ export default function App() {
     }
   }
 
+  // Calculate fees and discounts
+  function calculation() {
+    const courses = selectedCourses();
+
+    const intCount = courses.length;
+
+    const fltSubtotal = courses.reduce(
+      (total, course) => total + course.price,
+      0
+    );
+
+    let fltDiscountRate = 0;
+
+    if (intCount >= 4) {
+      fltDiscountRate = 0.15;
+    } else if (intCount === 3) {
+      fltDiscountRate = 0.10;
+    } else if (intCount === 2) {
+      fltDiscountRate = 0.05;
+    }
+
+    const fltDiscount =
+      fltSubtotal * fltDiscountRate;
+
+    const fltTotal =
+      fltSubtotal - fltDiscount;
+
+    return {
+      courses,
+      intCount,
+      fltSubtotal,
+      fltDiscountRate,
+      fltDiscount,
+      fltTotal,
+    };
+  }
+
