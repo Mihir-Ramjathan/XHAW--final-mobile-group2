@@ -309,3 +309,59 @@ export default function App() {
     };
   }
 
+  // Check course selection
+  function requireSelection(nextPage: Page) {
+    if (selectedIds.length === 0) {
+      Alert.alert(
+        "No Courses Selected",
+        "Please select at least one course."
+      );
+      return;
+    }
+
+    navigate(nextPage);
+  }
+
+  // Check customer details
+  function validateForm() {
+    if (strName.trim().length < 2) {
+      Alert.alert(
+        "Invalid Name",
+        "Please enter your full name."
+      );
+      return false;
+    }
+
+    const emailPattern =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(strEmail.trim())) {
+      Alert.alert(
+        "Invalid Email",
+        "Please enter a valid email address."
+      );
+      return false;
+    }
+
+    const phonePattern =
+      /^[0-9+\s()-]{9,20}$/;
+
+    if (!phonePattern.test(strPhone.trim())) {
+      Alert.alert(
+        "Invalid Phone Number",
+        "Please enter a valid phone number."
+      );
+      return false;
+    }
+
+    if (strMessage.trim().length < 10) {
+      Alert.alert(
+        "Invalid Message",
+        "Please enter at least 10 characters."
+      );
+      return false;
+    }
+
+    return true;
+  }
+
