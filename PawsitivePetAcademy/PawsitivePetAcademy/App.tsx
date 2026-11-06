@@ -249,3 +249,8 @@ export default function App() {
     setCurrentPage(page);
   }
 
+  // Format the price
+  function money(amount: number) {
+    return "R" + amount.toFixed(2);
+  }
+
