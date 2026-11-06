@@ -181,3 +181,45 @@ function AppButton({
   );
 }
 
+// Text input component
+type InputProps = {
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  keyboardType?: KeyboardTypeOptions;
+  multiline?: boolean;
+};
+
+function FormInput({
+  label,
+  value,
+  onChangeText,
+  keyboardType = "default",
+  multiline = false,
+}: InputProps) {
+  return (
+    <View style={styles.inputGroup}>
+      <Text style={styles.label}>{label}</Text>
+
+      <TextInput
+        style={[
+          styles.input,
+          multiline && styles.messageInput,
+        ]}
+        value={value}
+        onChangeText={onChangeText}
+        keyboardType={keyboardType}
+        multiline={multiline}
+        placeholder={"Enter " + label.toLowerCase()}
+        placeholderTextColor="#777777"
+        autoCapitalize={
+          keyboardType === "email-address"
+            ? "none"
+            : "sentences"
+        }
+        textAlignVertical="top"
+      />
+    </View>
+  );
+}
+
