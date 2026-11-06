@@ -254,3 +254,10 @@ export default function App() {
     return "R" + amount.toFixed(2);
   }
 
+  // Get selected courses
+  function selectedCourses() {
+    return COURSES.filter((course) =>
+      selectedIds.includes(course.id)
+    );
+  }
+
