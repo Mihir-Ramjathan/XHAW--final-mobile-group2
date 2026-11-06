@@ -223,3 +223,23 @@ function FormInput({
   );
 }
 
+export default function App() {
+  // Application variables
+  const [currentPage, setCurrentPage] =
+    useState<Page>("Welcome");
+
+  const [selectedIds, setSelectedIds] =
+    useState<string[]>([]);
+
+  const [selectedCourse, setSelectedCourse] =
+    useState<Course | null>(null);
+
+  // Customer information
+  const [strName, setStrName] = useState("");
+  const [strEmail, setStrEmail] = useState("");
+  const [strPhone, setStrPhone] = useState("");
+  const [strMessage, setStrMessage] = useState("");
+  const [strEnquiryType, setStrEnquiryType] = useState("");
+
+  const [strConfirmation, setStrConfirmation] =
+    useState("");
