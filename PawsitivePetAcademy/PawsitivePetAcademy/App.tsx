@@ -155,3 +155,29 @@ type Page =
   | "Contact"
   | "Confirmation";
 
+// Button component
+type ButtonProps = {
+  title: string;
+  onPress: () => void;
+  gold?: boolean;
+};
+
+function AppButton({
+  title,
+  onPress,
+  gold = false,
+}: ButtonProps) {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.button,
+        gold && styles.goldButton,
+      ]}
+      onPress={onPress}
+      accessibilityRole="button"
+    >
+      <Text style={styles.buttonText}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
+
