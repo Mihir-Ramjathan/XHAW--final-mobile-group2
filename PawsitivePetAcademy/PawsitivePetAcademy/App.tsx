@@ -374,3 +374,60 @@ export default function App() {
     setStrEnquiryType("");
   }
 
+  // Quote request
+  function submitQuote() {
+    if (selectedIds.length === 0) {
+      Alert.alert(
+        "Error",
+        "Please select a course first."
+      );
+      return;
+    }
+
+    if (!validateForm()) {
+      return;
+    }
+
+    const fees = calculation();
+
+    setStrConfirmation(
+      "Customer: " + strName + "\n\n" +
+      "Courses Selected: " + fees.intCount + "\n" +
+      "Subtotal: " + money(fees.fltSubtotal) + "\n" +
+      "Discount: " +
+      fees.fltDiscountRate * 100 + "%\n" +
+      "You Save: " + money(fees.fltDiscount) + "\n\n" +
+      "Final Total: " + money(fees.fltTotal) +
+      "\n\nThis is a demonstration quotation. " +
+      "It has not been sent to the academy."
+    );
+
+    clearForm();
+    navigate("Confirmation");
+  }
+
+  // Enquiry request
+  function submitEnquiry() {
+    if (strEnquiryType === "") {
+      Alert.alert(
+        "Error",
+        "Please choose an enquiry type."
+      );
+      return;
+    }
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setStrConfirmation(
+      "Thank you, " + strName + "!\n\n" +
+      "Your " + strEnquiryType.toLowerCase() +
+      " enquiry has been completed in this demonstration.\n\n" +
+      "It has not been sent to the academy."
+    );
+
+    clearForm();
+    navigate("Confirmation");
+  }
+
