@@ -1079,6 +1079,7 @@ export default function App() {
       <SafeAreaView style={styles.safeArea}>
         <StatusBar style="light" />
 
+        {/* Header with logo */}
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.headerContent}
@@ -1096,6 +1097,7 @@ export default function App() {
           </TouchableOpacity>
         </View>
 
+        {/* Navigation bar at the TOP */}
         {currentPage !== "Welcome" && (
           <View style={styles.navigation}>
             {[
@@ -1120,6 +1122,7 @@ export default function App() {
           </View>
         )}
 
+        {/* Screen content */}
         <ScrollView
           key={currentPage}
           style={styles.scrollView}
@@ -1134,3 +1137,239 @@ export default function App() {
   );
 }
 
+// Application styling
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: COLORS.cream,
+  },
+
+  header: {
+    backgroundColor: COLORS.forest,
+    padding: 12,
+  },
+
+  headerContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  logo: {
+    width: 45,
+    height: 45,
+    marginRight: 10,
+    borderRadius: 5,
+  },
+
+  headerTitle: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: "bold",
+    flexShrink: 1,
+  },
+
+  scrollView: {
+    flex: 1,
+  },
+
+  content: {
+    padding: 18,
+    paddingBottom: 35,
+  },
+
+  center: {
+    alignItems: "center",
+    paddingTop: 35,
+  },
+
+  welcomeLogo: {
+    width: 200,
+    height: 200,
+    marginBottom: 25,
+  },
+
+  heading: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: COLORS.forest,
+    marginBottom: 16,
+    textAlign: "center",
+  },
+
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: COLORS.forest,
+    marginTop: 20,
+    marginBottom: 12,
+  },
+
+  description: {
+    fontSize: 15,
+    color: COLORS.brown,
+    lineHeight: 23,
+    marginBottom: 15,
+  },
+
+  card: {
+    backgroundColor: COLORS.white,
+    padding: 18,
+    borderRadius: 12,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "#E3DDCF",
+  },
+
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: COLORS.forest,
+    marginBottom: 10,
+  },
+
+  smallText: {
+    fontSize: 14,
+    color: COLORS.brown,
+    marginTop: 10,
+  },
+
+  listText: {
+    fontSize: 15,
+    color: COLORS.brown,
+    marginBottom: 8,
+  },
+
+  price: {
+    fontSize: 21,
+    fontWeight: "bold",
+    color: COLORS.olive,
+    marginVertical: 12,
+  },
+
+  button: {
+    backgroundColor: COLORS.forest,
+    padding: 14,
+    borderRadius: 9,
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 5,
+  },
+
+  goldButton: {
+    backgroundColor: COLORS.gold,
+  },
+
+  buttonText: {
+    color: COLORS.white,
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+
+  selectionCard: {
+    backgroundColor: COLORS.white,
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#E3DDCF",
+  },
+
+  selectedCard: {
+    borderColor: COLORS.olive,
+    backgroundColor: "#EFF7E8",
+  },
+
+  inputGroup: {
+    marginBottom: 15,
+  },
+
+  label: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: COLORS.brown,
+    marginBottom: 6,
+  },
+
+  input: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: "#B7B7B7",
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 15,
+    color: COLORS.brown,
+  },
+
+  messageInput: {
+    minHeight: 110,
+  },
+
+  option: {
+    padding: 12,
+    backgroundColor: COLORS.cream,
+    borderRadius: 8,
+    marginBottom: 6,
+    borderWidth: 1,
+    borderColor: "#DDDDDD",
+  },
+
+  selectedOption: {
+    backgroundColor: "#DCEFCF",
+    borderColor: COLORS.olive,
+  },
+
+  summaryRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 7,
+  },
+
+  summaryName: {
+    flex: 1,
+    marginRight: 10,
+    color: COLORS.brown,
+  },
+
+  summaryText: {
+    fontSize: 15,
+    marginVertical: 6,
+    color: COLORS.brown,
+  },
+
+  divider: {
+    height: 1,
+    backgroundColor: "#DDDDDD",
+    marginVertical: 12,
+  },
+
+  total: {
+    fontSize: 23,
+    fontWeight: "bold",
+    color: COLORS.forest,
+    marginVertical: 12,
+  },
+
+  successIcon: {
+    fontSize: 65,
+    color: COLORS.olive,
+    marginBottom: 20,
+  },
+
+  navigation: {
+    flexDirection: "row",
+    backgroundColor: COLORS.forest,
+    paddingVertical: 15,
+    justifyContent: "space-around",
+  },
+
+  navItem: {
+    flex: 1,
+    alignItems: "center",
+  },
+
+  navText: {
+    color: COLORS.white,
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+});
