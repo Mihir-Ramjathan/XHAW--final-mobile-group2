@@ -365,3 +365,12 @@ export default function App() {
     return true;
   }
 
+  // Clear the customer form
+  function clearForm() {
+    setStrName("");
+    setStrEmail("");
+    setStrPhone("");
+    setStrMessage("");
+    setStrEnquiryType("");
+  }
+
