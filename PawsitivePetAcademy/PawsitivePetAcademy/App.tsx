@@ -551,3 +551,525 @@ export default function App() {
     );
   }
 
+  // Render the correct screen
+  function renderPage() {
+    const fees = calculation();
+
+    // 1. Welcome Screen
+    if (currentPage === "Welcome") {
+      return (
+        <View style={styles.center}>
+          <Image
+            source={require("./assets/logo.png")}
+            style={styles.welcomeLogo}
+            resizeMode="contain"
+          />
+
+          <Text style={styles.heading}>
+            Welcome to Pawsitive Pet Academy
+          </Text>
+
+          <Text style={styles.description}>
+            Learn • Train • Care
+          </Text>
+
+          <Text style={styles.description}>
+            Pet care education and practical
+            animal training in Durban.
+          </Text>
+
+          <AppButton
+            title="Get Started"
+            onPress={() => navigate("Home")}
+          />
+        </View>
+      );
+    }
+
+    // 2. Home Screen
+    if (currentPage === "Home") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            Pawsitive Pet Academy
+          </Text>
+
+          <Text style={styles.description}>
+            Welcome to our pet care and training academy.
+            Learn the skills needed to care for animals.
+          </Text>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>
+              Our Programmes
+            </Text>
+
+            <Text>
+              4 Professional Development Programmes
+            </Text>
+
+            <Text>
+              3 Practical Skills Courses
+            </Text>
+
+            <Text style={styles.smallText}>
+              Choose more courses to receive a discount.
+            </Text>
+          </View>
+
+          <AppButton
+            title="Browse Courses"
+            onPress={() => navigate("Courses")}
+          />
+
+          <AppButton
+            title="About Us"
+            gold
+            onPress={() => navigate("About")}
+          />
+
+          <AppButton
+            title="Send Enquiry"
+            onPress={() => navigate("Enquiry")}
+          />
+        </View>
+      );
+    }
+
+    // 3. About Screen
+    if (currentPage === "About") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            About Us
+          </Text>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>
+              Our Story
+            </Text>
+
+            <Text style={styles.description}>
+              Pawsitive Pet Academy was established
+              in 2023 by Sarah Smith in Durban.
+            </Text>
+
+            <Text style={styles.description}>
+              We offer pet care education and practical
+              animal training for pet owners, families
+              and aspiring pet professionals.
+            </Text>
+
+            <Text style={styles.description}>
+              Our goal is to improve animal wellbeing
+              and create employment opportunities
+              in the pet care industry.
+            </Text>
+          </View>
+
+          <AppButton
+            title="View Courses"
+            onPress={() => navigate("Courses")}
+          />
+        </View>
+      );
+    }
+
+    // 4. Courses Screen
+    if (currentPage === "Courses") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            Our Courses
+          </Text>
+
+          <Text style={styles.sectionTitle}>
+            Professional Development Programmes
+          </Text>
+
+          {COURSES.filter(
+            (course) => course.price === 1500
+          ).map((course) => courseCard(course))}
+
+          <Text style={styles.sectionTitle}>
+            Practical Skills Courses
+          </Text>
+
+          {COURSES.filter(
+            (course) => course.price === 750
+          ).map((course) => courseCard(course))}
+
+          <AppButton
+            title="Continue to Selection"
+            onPress={() =>
+              navigate("SelectCourses")
+            }
+          />
+        </View>
+      );
+    }
+
+    // 5. Course Detail Screen
+    if (currentPage === "CourseDetail") {
+      if (selectedCourse === null) {
+        return (
+          <View>
+            <Text style={styles.heading}>
+              Course Not Found
+            </Text>
+
+            <AppButton
+              title="Back to Courses"
+              onPress={() => navigate("Courses")}
+            />
+          </View>
+        );
+      }
+
+      return (
+        <View>
+          <Text style={styles.heading}>
+            {selectedCourse.name}
+          </Text>
+
+          <View style={styles.card}>
+            <Text style={styles.description}>
+              {selectedCourse.description}
+            </Text>
+
+            <Text style={styles.cardTitle}>
+              Course Content
+            </Text>
+
+            {selectedCourse.topics.map(
+              (topic, index) => (
+                <Text
+                  key={index}
+                  style={styles.listText}
+                >
+                  • {topic}
+                </Text>
+              )
+            )}
+
+            <Text style={styles.smallText}>
+              Duration: {selectedCourse.duration}
+            </Text>
+
+            <Text style={styles.price}>
+              {money(selectedCourse.price)}
+            </Text>
+
+            <AppButton
+              title={
+                selectedIds.includes(selectedCourse.id)
+                  ? "Remove Course"
+                  : "Select Course"
+              }
+              onPress={() =>
+                toggleCourse(selectedCourse.id)
+              }
+            />
+
+            <AppButton
+              title="Back to Courses"
+              gold
+              onPress={() => navigate("Courses")}
+            />
+          </View>
+        </View>
+      );
+    }
+
+    // 6. Select Courses Screen
+    if (currentPage === "SelectCourses") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            Select Courses
+          </Text>
+
+          <Text style={styles.description}>
+            Select one or more courses.
+          </Text>
+
+          {COURSES.map((course) => (
+            <TouchableOpacity
+              key={course.id}
+              style={[
+                styles.selectionCard,
+                selectedIds.includes(course.id) &&
+                  styles.selectedCard,
+              ]}
+              onPress={() =>
+                toggleCourse(course.id)
+              }
+            >
+              <Text style={styles.cardTitle}>
+                {selectedIds.includes(course.id)
+                  ? "☑ "
+                  : "☐ "}
+                {course.name}
+              </Text>
+
+              <Text>{money(course.price)}</Text>
+            </TouchableOpacity>
+          ))}
+
+          <View style={styles.card}>
+            <Text>
+              Selected Courses: {fees.intCount}
+            </Text>
+
+            <Text style={styles.price}>
+              Total: {money(fees.fltTotal)}
+            </Text>
+          </View>
+
+          <AppButton
+            title="Continue"
+            onPress={() =>
+              requireSelection("MySelection")
+            }
+          />
+        </View>
+      );
+    }
+
+    // 7. My Selection Screen
+    if (currentPage === "MySelection") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            My Selection
+          </Text>
+
+          {fees.courses.length === 0 && (
+            <Text>
+              No courses selected.
+            </Text>
+          )}
+
+          {fees.courses.map((course) => (
+            <View
+              style={styles.card}
+              key={course.id}
+            >
+              <Text style={styles.cardTitle}>
+                {course.name}
+              </Text>
+
+              <Text>
+                {money(course.price)}
+              </Text>
+
+              <AppButton
+                title="Remove Course"
+                onPress={() =>
+                  toggleCourse(course.id)
+                }
+              />
+            </View>
+          ))}
+
+          <AppButton
+            title="Calculate Fees"
+            onPress={() =>
+              requireSelection("Fees")
+            }
+          />
+
+          <AppButton
+            title="Add More Courses"
+            gold
+            onPress={() =>
+              navigate("SelectCourses")
+            }
+          />
+        </View>
+      );
+    }
+
+    // 8. Fees Screen
+    if (currentPage === "Fees") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            Course Fees
+          </Text>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>
+              Quotation Summary
+            </Text>
+
+            {fees.courses.map((course) => (
+              <View
+                key={course.id}
+                style={styles.summaryRow}
+              >
+                <Text style={styles.summaryName}>
+                  {course.name}
+                </Text>
+
+                <Text>
+                  {money(course.price)}
+                </Text>
+              </View>
+            ))}
+
+            <View style={styles.divider} />
+
+            <Text style={styles.summaryText}>
+              Courses: {fees.intCount}
+            </Text>
+
+            <Text style={styles.summaryText}>
+              Subtotal: {money(fees.fltSubtotal)}
+            </Text>
+
+            <Text style={styles.summaryText}>
+              Discount: {fees.fltDiscountRate * 100}%
+            </Text>
+
+            <Text style={styles.summaryText}>
+              You Save: {money(fees.fltDiscount)}
+            </Text>
+
+            <View style={styles.divider} />
+
+            <Text style={styles.total}>
+              Total: {money(fees.fltTotal)}
+            </Text>
+          </View>
+
+          <AppButton
+            title="Request Quote"
+            onPress={() =>
+              requireSelection("RequestQuote")
+            }
+          />
+
+          <AppButton
+            title="Change Courses"
+            gold
+            onPress={() =>
+              navigate("SelectCourses")
+            }
+          />
+        </View>
+      );
+    }
+
+    // 9. Request Quote Screen
+    if (currentPage === "RequestQuote") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            Request a Quote
+          </Text>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>
+              Estimated Total
+            </Text>
+
+            <Text style={styles.total}>
+              {money(fees.fltTotal)}
+            </Text>
+
+            <Text>
+              {fees.intCount} course(s) selected
+            </Text>
+          </View>
+
+          {customerForm(true)}
+        </View>
+      );
+    }
+
+    // 10. Enquiry Screen
+    if (currentPage === "Enquiry") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            Enquiry Form
+          </Text>
+
+          <Text style={styles.description}>
+            Complete the form below if you have
+            questions about our courses.
+          </Text>
+
+          {customerForm(false)}
+        </View>
+      );
+    }
+
+    // 11. Contact Screen
+    if (currentPage === "Contact") {
+      return (
+        <View>
+          <Text style={styles.heading}>
+            Contact Us
+          </Text>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>
+              Pawsitive Pet Academy
+            </Text>
+
+            <Text style={styles.description}>
+              Durban, KwaZulu-Natal, South Africa
+            </Text>
+
+            <Text style={styles.description}>
+              Founder: Sarah Smith
+            </Text>
+
+            <Text style={styles.description}>
+              Established: 2023
+            </Text>
+
+            <Text style={styles.smallText}>
+              Official contact details will be
+              added when provided by the academy.
+            </Text>
+          </View>
+
+          <AppButton
+            title="Send Enquiry"
+            onPress={() => navigate("Enquiry")}
+          />
+        </View>
+      );
+    }
+
+    // 12. Confirmation Screen
+    if (currentPage === "Confirmation") {
+      return (
+        <View style={styles.center}>
+          <Text style={styles.successIcon}>
+            ✓
+          </Text>
+
+          <Text style={styles.heading}>
+            Request Completed
+          </Text>
+
+          <Text style={styles.description}>
+            {strConfirmation}
+          </Text>
+
+          <AppButton
+            title="Return Home"
+            onPress={() => navigate("Home")}
+          />
+        </View>
+      );
+    }
+
+    return null;
+  }
+
+  
