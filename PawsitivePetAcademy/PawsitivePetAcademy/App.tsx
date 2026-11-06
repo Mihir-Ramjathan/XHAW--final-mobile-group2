@@ -507,3 +507,47 @@ export default function App() {
     );
   }
 
+  // Course card
+  function courseCard(course: Course) {
+    const blnSelected =
+      selectedIds.includes(course.id);
+
+    return (
+      <View style={styles.card} key={course.id}>
+        <Text style={styles.cardTitle}>
+          {course.name}
+        </Text>
+
+        <Text style={styles.description}>
+          {course.description}
+        </Text>
+
+        <Text>
+          Duration: {course.duration}
+        </Text>
+
+        <Text style={styles.price}>
+          {money(course.price)}
+        </Text>
+
+        <AppButton
+          title="View Details"
+          onPress={() => {
+            setSelectedCourse(course);
+            navigate("CourseDetail");
+          }}
+        />
+
+        <AppButton
+          title={
+            blnSelected
+              ? "Remove Course"
+              : "Select Course"
+          }
+          gold
+          onPress={() => toggleCourse(course.id)}
+        />
+      </View>
+    );
+  }
+
